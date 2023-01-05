@@ -1,7 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
+import {useEffect} from 'react';
 
-function App () {
+
+
+const App = () => {
+    useEffect(() => {
+        console.log('mounted');
+    }, []);
+
     return (
         <div className="App">
             <header className="App-header">
@@ -20,6 +27,7 @@ function App () {
             </header>
         </div>
     );
-}
+};
+
 
 export {App};
