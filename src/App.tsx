@@ -1,14 +1,14 @@
-import React from 'react';
-import './global.css';
+import React from "react";
+import "./global.css";
 
 
 const App = () => {
-    return (
-        <div className="App">
+	return (
+		<div className="App">
             Tasks App
-        </div>
-    );
-}
+		</div>
+	);
+};
 
 
 export { App };
