@@ -18,7 +18,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": false
   },
   "include": [
     "src"
