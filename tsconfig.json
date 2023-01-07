@@ -23,7 +23,8 @@
     "exactOptionalPropertyTypes": true,
     "noImplicitReturns": true,
     "strictBindCallApply": true,
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "experimentalDecorators": true
   },
   "include": [
     "src"
