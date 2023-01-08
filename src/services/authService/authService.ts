@@ -1,5 +1,5 @@
-import { BASE_API_ROUTE } from '../../config/routes';
-import { http } from '../http';
+import { BASE_API_ROUTE } from 'config/routes';
+import { http } from 'services/http';
 
 
 const APP_NAME = 'auth';

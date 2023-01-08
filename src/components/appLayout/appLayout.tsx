@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { authStore } from '../../stores/authStore';
+import { authStore } from 'stores/authStore';
 
 
 

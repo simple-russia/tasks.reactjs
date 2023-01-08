@@ -1,6 +1,6 @@
-import { About } from '../pages/about';
-import { Careers } from '../pages/careers';
-import { Main } from '../pages/main';
+import { About } from 'pages/about';
+import { Careers } from 'pages/careers';
+import { Main } from 'pages/main';
 
 export const BASE_API_ROUTE = process.env.REACT_APP_API_BASE;
 
