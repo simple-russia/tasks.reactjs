@@ -4,6 +4,7 @@ import { authStore } from './stores/authStore';
 import './global.css';
 import { AppRouter } from './components/appRouter/appRouter';
 import { BrowserRouter } from 'react-router-dom';
+import { AppLayout } from './components/appLayout/appLayout';
 
 
 
@@ -15,7 +16,9 @@ const App = observer(() => {
 
     return (
         <BrowserRouter>
-            <AppRouter />
+            <AppLayout>
+                <AppRouter />
+            </AppLayout>
         </BrowserRouter>
     );
 });

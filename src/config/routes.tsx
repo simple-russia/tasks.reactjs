@@ -1,4 +1,5 @@
 import { About } from '../pages/about';
+import { Careers } from '../pages/careers';
 import { Main } from '../pages/main';
 
 export const BASE_API_ROUTE = process.env.REACT_APP_API_BASE;
@@ -18,5 +19,9 @@ export const TOP_LEVEL_ROUTES: ITopLevelRoute[] = [
     {
         component: <Main />,
         path: 'main',
-    }
+    },
+    {
+        component: <Careers />,
+        path: 'careers',
+    },
 ];
