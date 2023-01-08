@@ -24,7 +24,15 @@
     "noImplicitReturns": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": "src",
+    "paths": {
+      "@config/*": ["config/*"],
+      "@pages/*": ["/*"],
+      "@components/*": ["components/*"],
+      "@services/*": ["services/*"],
+      "@stores/*": ["stores/*"],
+    }
   },
   "include": [
     "src"
