@@ -1,4 +1,4 @@
-import { BASE_API_ROUTE } from '../config/routes';
+import { BASE_API_ROUTE } from '../../config/routes';
 import { http } from '../http';
 
 
