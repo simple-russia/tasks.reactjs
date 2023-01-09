@@ -17,6 +17,7 @@ export const AppRouter = observer(() => {
                         );
                     })
                 }
+                <Route path='*' element={<div>404</div>} />
             </Route>
 
             {
@@ -27,7 +28,6 @@ export const AppRouter = observer(() => {
                 })
             }
 
-            <Route path='*' element={<div>404</div>} />
         </Routes>
     );
 });
