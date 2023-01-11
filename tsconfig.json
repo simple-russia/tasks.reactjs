@@ -27,11 +27,11 @@
     "experimentalDecorators": true,
     "baseUrl": "src",
     "paths": {
-      "@config/*": ["config/*"],
-      "@pages/*": ["/*"],
-      "@components/*": ["components/*"],
-      "@services/*": ["services/*"],
-      "@stores/*": ["stores/*"],
+      "config/*": ["config/*"],
+      "pages/*": ["pages/*"],
+      "components/*": ["components/*"],
+      "services/*": ["services/*"],
+      "stores/*": ["stores/*"],
     }
   },
   "include": [

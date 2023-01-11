@@ -1,6 +1,15 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #2c2c2c;
-    color: #fff;
+    background-color: #eadbb9;
+    overflow: hidden;
+    color: rgb(40, 39, 39);
+    background-image: url('./noise.png');
+}
+
+button {
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: none;
 }
