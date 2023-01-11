@@ -1,0 +1,17 @@
+.circle_pattern {
+    background-image:  linear-gradient(#444cf7 1px, transparent 1px), linear-gradient(to right, #444cf7 1px, #e5e5f7 1px);
+    background-size: 20px 20px;
+    border-bottom: 1px #444cf7 solid;
+}
+
+.zigzag_pattern {
+    background-image:
+        linear-gradient(135deg, var(--pattern-color) 25%, transparent 25%),
+        linear-gradient(225deg, var(--pattern-color) 25%, transparent 25%),
+        linear-gradient(45deg, var(--pattern-color) 25%, transparent 25%),
+        linear-gradient(315deg, var(--pattern-color) 25%, #e5e5f700 25%);
+
+    background-position:  10px 0, 10px 0, 0 0, 0 0;
+    background-size: 20px 20px;
+    background-repeat: repeat;
+}
