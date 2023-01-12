@@ -13,7 +13,7 @@ const DEFAULT_COLOR = '#A0F';
 const DEFAULT_HEIGHT = 50;
 const DEFAULT_WIDTH = 200;
 const DEFAULT_WAVY_LENGTH = 40;
-const DEFAULT_STROKE_WIDTH = 3;
+const DEFAULT_STROKE_WIDTH = 1;
 
 
 export const WavyLine = ({
@@ -38,7 +38,7 @@ export const WavyLine = ({
 
         return path;
     };
-    console.log(style);
+
     return (
         <svg style={style} className={className} xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
             <path strokeWidth={strokeWidth} fill='#0000' stroke={color} d={createWavyPath(iters)} />

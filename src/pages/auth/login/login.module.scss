@@ -1,10 +1,15 @@
+@font-face {
+    font-family: Inter;
+    src: url('./InterBlack.ttf');
+}
+
 .login_box {
     --border-color: rgb(0, 0, 0);
     --border-width: 1px;
     position: relative;
 
     width: 300px;
-    height: 300px;
+    height: 380px;
 
     margin: auto;
     margin-top: 150px;
@@ -26,6 +31,7 @@
             height: 51px;
             border: var(--border-width) solid var(--border-color);
             position: absolute;
+            font-family: 'Inter';
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
@@ -33,6 +39,7 @@
             color: #fff;
             font-size: 14px;
             font-weight: 700;
+            letter-spacing: 1px;
 
             &:hover {
                 transform: translateX(-50%) scale(1.0) translateY(-0px);
@@ -108,4 +115,23 @@
     height: 30px;
     border-bottom: var(--border-width) solid var(--border-color);
     background-color: #fff;
+
+
+
+    margin-bottom: 80px;
+}
+
+
+.input {
+    display: block;
+    margin-left: 20px;
+    margin-top: 12px;
+    margin-bottom: 26px;
+    width: 237px;
+    height: 40px;
+    border: 1px solid black;
+    box-shadow: 0 1px 0 0 black;
+    font-size: 16px;
+    padding-left: 8px;
+    box-sizing: border-box;
 }

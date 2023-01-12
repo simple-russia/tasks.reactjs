@@ -12,3 +12,12 @@ button {
     outline: 0;
     background: none;
 }
+
+a {
+    color: black;
+    text-decoration: underline;
+}
+
+input:focus-visible {
+    outline: none;
+}
