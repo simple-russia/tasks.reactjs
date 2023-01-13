@@ -4,6 +4,7 @@
 }
 
 .input_cont {
+    position: relative;
     display: grid;
     grid-template-columns: auto 1fr;
     height: 40px;
@@ -16,6 +17,24 @@
 
 .input_cont:not(.prefix_input) {
     grid-template-columns: 1fr;
+}
+
+
+.reveal_password {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 40px;
+
+    cursor: pointer;
+
+    &:hover > svg {
+        filter: brightness(1.1);
+    }
 }
 
 .prefix {
@@ -40,9 +59,13 @@
     box-sizing: border-box;
 }
 
+.password_input {
+    padding-right: 40px;
+}
+
 .error_text {
     min-height: 20px;
     padding-top: 3px;
     color: red;
-    font-size: 13px;
+    font-size: 14px;
 }

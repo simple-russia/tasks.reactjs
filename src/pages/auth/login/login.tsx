@@ -37,8 +37,8 @@ export const Login = observer(() => {
 
                 <div className={styles.login_box}>
                     <h1 style={{ marginBottom: '10px', position: 'relative' }}>Log in</h1>
-                    <Input prefixIcon={<UserIcon />} placeholder='username' />
-                    <Input prefixIcon={<LockIcon />} placeholder='password' type='password' />
+                    <Input required prefixIcon={<UserIcon />} placeholder='username' />
+                    <Input required prefixIcon={<LockIcon />} placeholder='password' type='password' />
                     <Button
                         style={{ width: '100%', height: 50 }}
                         onClick={onBtnClick}

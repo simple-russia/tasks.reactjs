@@ -1,5 +1,7 @@
+import { EyeIcon } from 'components/ui/icons';
 import { useState } from 'react';
 import { concatStrings as c } from 'utils/concatStrings';
+import { FieldValidator, requiredValidator } from './validators';
 import styles from './input.module.scss';
 
 
@@ -8,36 +10,13 @@ interface IInputProps {
     placeholder?: string,
     style?: React.CSSProperties,
     prefixIcon?: JSX.Element,
+    validators?: FieldValidator[],
+    required?: boolean,
 }
 
 
-type Validator = (value: string) => {validatorName: string, isValid: boolean, errorMessage?: string};
-
-const rightChars: Validator = (value) => {
-    const validatorName = 'chats';
-
-    const regexp = /^[a-zA-Z0-9_]*$/;
-
-    if (regexp.test(value)) {
-        return { isValid: true, validatorName };
-    }
-
-    return { isValid: false, validatorName, errorMessage: 'Use only latin letters, digitd and _' };
-};
-
-const lengthValidator: Validator = (value) => {
-    const validatorName = 'length';
-
-    if (value.length >= 5 && value.length <= 16) {
-        return { isValid: true, validatorName };
-    }
-
-    return { isValid: false, validatorName, errorMessage: 'Length must be between 6 and 15 charatcers' };
-};
-
-
-
 const DEFAULT_TYPE = 'text';
+const DEFAULT_REQUIRED = false;
 
 
 export const Input = ({
@@ -45,12 +24,16 @@ export const Input = ({
     type=DEFAULT_TYPE,
     style,
     prefixIcon,
+    validators=[],
+    required=DEFAULT_REQUIRED,
 }: IInputProps) => {
     const [errors, setErrors] = useState<string[]>([]);
     const [value, setValue] = useState<string>('');
-    const hasPrefix = !!prefixIcon;
+    const [passwordShown, setPasswordShown] = useState(false);
 
-    const validators: Validator[] = [lengthValidator, rightChars];
+    const hasPrefix = !!prefixIcon;
+    const isPassword = type === 'password';
+    const inputType = !isPassword ? type : !passwordShown ? type : 'text';
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -58,10 +41,9 @@ export const Input = ({
 
         const inputErrors: string[] = [];
 
-        // const validation = lengthValidator(value);
-        // if (!validation.isValid && validation.errorMessage) {
-        //     inputErrors.push(validation.errorMessage);
-        // }
+        if (required) {
+            validators.push(requiredValidator);
+        }
 
         validators.forEach(validator => {
             const validation = validator(value);
@@ -73,6 +55,7 @@ export const Input = ({
 
         setErrors(inputErrors);
     };
+
 
     return (
         <div className={styles.wrapper} style={style}>
@@ -87,10 +70,17 @@ export const Input = ({
                 <input
                     value={value}
                     onChange={onChange}
-                    type={type}
+                    type={inputType}
                     placeholder={placeholder}
-                    className={styles.input}
+                    className={c(styles.input, isPassword && styles.password_input)}
                 />
+
+                {
+                    isPassword &&
+                    <div className={styles.reveal_password} onClick={() => setPasswordShown(b => !b)}>
+                        <EyeIcon />
+                    </div>
+                }
             </div>
 
             <div className={styles.error_text}>
