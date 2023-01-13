@@ -8,6 +8,7 @@ interface IWrapper3DProps{
     lineWidth?: number,
     borderColor?: `#${string}`,
     backgroundColor?: `#${string}`,
+    className?: string,
 }
 
 const DEFAULT_OFFSET = 10;
@@ -23,6 +24,7 @@ export const Wrapper3d = ({
     lineWidth=DEFAULT_LINE_WIDTH,
     backgroundColor=DEFAULT_BACKGROUND_COLOR,
     borderColor=DEFAULT_BORDER_COLOR,
+    className,
 }: IWrapper3DProps) => {
     const vars = {
         '--border-width': `${lineWidth}px`,
@@ -36,7 +38,7 @@ export const Wrapper3d = ({
                 ...vars,
                 ...style,
             }}
-            className={styles.main}
+            className={styles.main + ` ${className}`}
         >
             <div
                 className={styles.background}

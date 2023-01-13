@@ -1,0 +1,22 @@
+.button {
+    cursor: pointer;
+    display: block;
+    width: 240px;
+    height: 51px;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: 0 0 0 1px inset #fff6;
+    font-family: "Inter";
+    background: #9884fb;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1px;
+
+    transition: 100ms all;
+}
+
+.button.disabled {
+    cursor: default;
+    background: #e3e3e7;
+    color: rgb(195, 195, 202);
+    box-shadow: 0 0 0 1px inset #fffb;
+}

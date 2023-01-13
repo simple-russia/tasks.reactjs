@@ -1,0 +1,40 @@
+.wrapper {
+    // padding-bottom: 22px;
+    margin-bottom: 6px;
+}
+
+.input_cont {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    height: 40px;
+    border: 1px solid black;
+    box-shadow: 0 1px 0 0 black;
+    font-size: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.prefix {
+    height: 100%;
+    width: 40px;
+    border-right: 1px solid black;
+    box-sizing: content-box;
+}
+
+.input {
+    display: block;
+    border: 0;
+    padding: 0 8px;
+    flex: 0 1;
+    font-size: 16px;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.error_text {
+    min-height: 20px;
+    padding-top: 3px;
+    color: red;
+    font-size: 13px;
+}
