@@ -1,5 +1,5 @@
 import { ReactComponent as Lock } from 'media/icons/lock.svg';
-import { IIcon } from '../types';
+import { IIcon } from '../userIcon/types';
 import styles from './lock.module.scss';
 
 

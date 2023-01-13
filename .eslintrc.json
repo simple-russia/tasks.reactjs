@@ -37,6 +37,7 @@
         "object-curly-spacing": ["error", "always"],
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-empty-function": "warn",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-duplicate-imports": "error"
     }
 }

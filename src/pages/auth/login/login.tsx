@@ -1,16 +1,14 @@
-import { useEffect } from 'react';
-import { authStore } from 'stores/authStore';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
+
+import { authStore } from 'stores/authStore';
+
+import { Wrapper3d, Pattern } from 'components/ui/decoration';
+import { Button, Input } from 'components/ui/form';
+import { UserIcon, LockIcon } from 'components/ui/icons';
+
 import styles from './login.module.scss';
-import { Pattern } from 'components/ui/decoration/circlePattern';
-import { Wrapper3d } from 'components/ui/decoration/wrapper3d';
-import { OffsetFigure } from 'components/ui/decoration/offsetFigure';
-import { Button } from 'components/ui/form/button';
-import { Input } from 'components/ui/form/input';
-import { useState } from 'react';
-import { UserIcon } from 'components/ui/icons/userIcon';
-import { LockIcon } from 'components/ui/icons/lockIcon/lockIcon';
 
 
 
@@ -36,7 +34,7 @@ export const Login = observer(() => {
         <div className={styles.login_page_cont}>
             <Wrapper3d className={styles.login_wrapper} offset={12} lineWidth={1}>
                 <Pattern height={100} width={100} type='circle' color='#123456' styles={{ position: 'absolute', left: -55, top: 140 }} />
-                {/* <OffsetFigure height={30} width={30} /> */}
+
                 <div className={styles.login_box}>
                     <h1 style={{ marginBottom: '10px', position: 'relative' }}>Log in</h1>
                     <Input prefixIcon={<UserIcon />} placeholder='username' />
