@@ -32,6 +32,7 @@
       "components/*": ["components/*"],
       "services/*": ["services/*"],
       "stores/*": ["stores/*"],
+      "media/*": ["media/*"],
     }
   },
   "include": [

@@ -8,10 +8,21 @@ import { Wrapper3d } from 'components/ui/decoration/wrapper3d';
 import { OffsetFigure } from 'components/ui/decoration/offsetFigure';
 import { Button } from 'components/ui/form/button';
 import { Input } from 'components/ui/form/input';
+import { useState } from 'react';
+import { UserIcon } from 'components/ui/icons/userIcon';
+import { LockIcon } from 'components/ui/icons/lockIcon/lockIcon';
+
 
 
 export const Login = observer(() => {
     const navigate = useNavigate();
+
+    const [isFetching, setIsFetching] = useState(false);
+
+    const onBtnClick = () => {
+        setIsFetching(true);
+        setTimeout(() => setIsFetching(false), 2000);
+    };
 
 
     useEffect(() => {
@@ -27,11 +38,16 @@ export const Login = observer(() => {
                 <Pattern height={100} width={100} type='circle' color='#123456' styles={{ position: 'absolute', left: -55, top: 140 }} />
                 {/* <OffsetFigure height={30} width={30} /> */}
                 <div className={styles.login_box}>
-                    <h1 style={{ marginBottom: '10px' }}>Log in</h1>
-                    <Input placeholder='username' />
-                    <Input placeholder='password' type='password' />
-                    <Button style={{ width: '100%', height: 50 }}>SIGN IN</Button>
-
+                    <h1 style={{ marginBottom: '10px', position: 'relative' }}>Log in</h1>
+                    <Input prefixIcon={<UserIcon />} placeholder='username' />
+                    <Input prefixIcon={<LockIcon />} placeholder='password' type='password' />
+                    <Button
+                        style={{ width: '100%', height: 50 }}
+                        onClick={onBtnClick}
+                        disabled={isFetching}
+                    >
+                        {isFetching ? '()' : 'SIGN IN'}
+                    </Button>
                 </div>
             </Wrapper3d>
         </div>

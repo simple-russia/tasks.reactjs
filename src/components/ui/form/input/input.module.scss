@@ -14,11 +14,19 @@
     overflow: hidden;
 }
 
+.input_cont:not(.prefix_input) {
+    grid-template-columns: 1fr;
+}
+
 .prefix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     width: 40px;
     border-right: 1px solid black;
     box-sizing: content-box;
+    background-color: #edeeff;;
 }
 
 .input {

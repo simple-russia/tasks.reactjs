@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { concatStrings as c } from 'utils/concatStrings';
 import styles from './input.module.scss';
 
 
 interface IInputProps {
     type?: 'text' | 'password',
     placeholder?: string,
+    style?: React.CSSProperties,
+    prefixIcon?: JSX.Element,
 }
 
 
@@ -40,9 +43,12 @@ const DEFAULT_TYPE = 'text';
 export const Input = ({
     placeholder,
     type=DEFAULT_TYPE,
+    style,
+    prefixIcon,
 }: IInputProps) => {
     const [errors, setErrors] = useState<string[]>([]);
     const [value, setValue] = useState<string>('');
+    const hasPrefix = !!prefixIcon;
 
     const validators: Validator[] = [lengthValidator, rightChars];
 
@@ -69,11 +75,14 @@ export const Input = ({
     };
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.input_cont}>
-                <div className={styles.prefix}>
-
-                </div>
+        <div className={styles.wrapper} style={style}>
+            <div className={c(styles.input_cont, hasPrefix && styles.prefix_input)}>
+                {
+                    hasPrefix &&
+                    <div className={styles.prefix}>
+                        {prefixIcon}
+                    </div>
+                }
 
                 <input
                     value={value}
