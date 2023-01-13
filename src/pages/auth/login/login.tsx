@@ -6,7 +6,7 @@ import { authStore } from 'stores/authStore';
 
 import { Wrapper3d, Pattern } from 'components/ui/decoration';
 import { Button, Input } from 'components/ui/form';
-import { UserIcon, LockIcon } from 'components/ui/icons';
+import { UserIcon, LockIcon, LoadingIcon } from 'components/ui/icons';
 
 import styles from './login.module.scss';
 
@@ -44,8 +44,9 @@ export const Login = observer(() => {
                         onClick={onBtnClick}
                         disabled={isFetching}
                     >
-                        {isFetching ? '()' : 'SIGN IN'}
+                        {isFetching ? <LoadingIcon /> : 'SIGN IN'}
                     </Button>
+
                 </div>
             </Wrapper3d>
         </div>

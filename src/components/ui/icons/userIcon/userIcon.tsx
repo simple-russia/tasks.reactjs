@@ -1,5 +1,5 @@
 import { ReactComponent as User } from 'media/icons/user.svg';
-import { IIcon } from './types';
+import { IIcon } from '../types';
 
 export const UserIcon = ({
     color,

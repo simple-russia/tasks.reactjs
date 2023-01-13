@@ -1,5 +1,5 @@
 import { ReactComponent as Eye } from 'media/icons/eye.svg';
-import { IIcon } from '../userIcon/types';
+import { IIcon } from '../types';
 
 export const EyeIcon = ({
     color,
