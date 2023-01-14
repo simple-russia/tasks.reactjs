@@ -1,6 +1,7 @@
 .login_page_cont {
     width: 100vw;
     height: 100vh;
+    padding: 4px;
 
     display: flex;
     justify-content: center;
@@ -9,7 +10,6 @@
 
 .login_wrapper {
     width: 350px;
-    height: 350px;
 }
 
 .login_box {
@@ -27,4 +27,19 @@
     justify-content: space-between;
     font-size: 14px;
     margin-bottom: 8px;
+
+    > div:first-child {
+        user-select: none;
+    }
+}
+
+.register {
+    font-size: 14px;
+    padding: 16px 0 4px;
+    text-align: center;
+}
+
+.login_title {
+    text-align: center;
+    margin-bottom: 10px;
 }

@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { authStore } from 'stores/authStore';
 
 import { Wrapper3d, Pattern } from 'components/ui/decoration';
-import { Button, Input } from 'components/ui/form';
+import { Button, Input, Checkbox } from 'components/ui/form';
 import { UserIcon, LockIcon, LoadingIcon } from 'components/ui/icons';
 
 import styles from './login.module.scss';
-import { Checkbox } from 'components/ui/form/checkbox';
+import { MonkeyHead } from './monkeyHead/monkeyHead';
+
 
 
 
 export const Login = observer(() => {
     const navigate = useNavigate();
 
+    const [eyesClosed, setEyesClosed] = useState(false); // for the monkey head
     const [isFetching, setIsFetching] = useState(false);
 
     const onBtnClick = () => {
@@ -37,9 +39,10 @@ export const Login = observer(() => {
                 <Pattern height={100} width={100} type='circle' color='#123456' styles={{ position: 'absolute', left: -55, top: 140 }} />
 
                 <div className={styles.login_box}>
-                    <h1 style={{ marginBottom: '10px', position: 'relative', opacity: 0 }}>Log in</h1>
-                    <Input required prefixIcon={<UserIcon />} placeholder='username' />
-                    <Input required prefixIcon={<LockIcon />} placeholder='password' type='password' />
+                    <MonkeyHead eyesClosed={!eyesClosed} />
+
+                    <Input onFocus={() => setEyesClosed(true)} onBlur={() => setEyesClosed(false)} required prefixIcon={<UserIcon />} placeholder='username' />
+                    <Input onFocus={() => setEyesClosed(true)} onBlur={() => setEyesClosed(false)} required prefixIcon={<LockIcon />} placeholder='password' type='password' />
 
                     <div className={styles.help_block}>
                         <div>
@@ -59,6 +62,9 @@ export const Login = observer(() => {
                         {isFetching ? <LoadingIcon /> : 'SIGN IN'}
                     </Button>
 
+                    <div className={styles.register}>
+                        {'Don\'t have an account?'} <Link to={'/register'}>Register now</Link>
+                    </div>
                 </div>
             </Wrapper3d>
         </div>

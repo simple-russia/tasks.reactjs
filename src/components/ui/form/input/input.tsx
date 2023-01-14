@@ -12,6 +12,8 @@ interface IInputProps {
     prefixIcon?: JSX.Element,
     validators?: FieldValidator[],
     required?: boolean,
+    onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
+    onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
 }
 
 
@@ -26,6 +28,8 @@ export const Input = ({
     prefixIcon,
     validators=[],
     required=DEFAULT_REQUIRED,
+    onFocus,
+    onBlur,
 }: IInputProps) => {
     const [errors, setErrors] = useState<string[]>([]);
     const [value, setValue] = useState<string>('');
@@ -74,6 +78,8 @@ export const Input = ({
                     type={inputType}
                     placeholder={placeholder}
                     className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                 />
 
                 {
