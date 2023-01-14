@@ -1,4 +1,4 @@
-import { EyeIcon } from 'components/ui/icons';
+import { EyeClosedIcon, EyeIcon } from 'components/ui/icons';
 import { useState } from 'react';
 import { concatStrings as c } from 'utils/concatStrings';
 import { FieldValidator, requiredValidator } from './validators';
@@ -34,6 +34,7 @@ export const Input = ({
     const hasPrefix = !!prefixIcon;
     const isPassword = type === 'password';
     const inputType = !isPassword ? type : !passwordShown ? type : 'text';
+    const isPasswordHidden = isPassword && value && !passwordShown;
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -72,13 +73,13 @@ export const Input = ({
                     onChange={onChange}
                     type={inputType}
                     placeholder={placeholder}
-                    className={c(styles.input, isPassword && styles.password_input)}
+                    className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
                 />
 
                 {
                     isPassword &&
                     <div className={styles.reveal_password} onClick={() => setPasswordShown(b => !b)}>
-                        <EyeIcon />
+                        {passwordShown ? <EyeClosedIcon /> : <EyeIcon />}
                     </div>
                 }
             </div>

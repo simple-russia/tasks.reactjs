@@ -1,0 +1,29 @@
+.checkbox {
+    display: inline-flex;
+    background-color: rgb(236, 236, 236);
+    width: 16px;
+    height: 16px;
+    padding: 2px;
+    border: 1px black solid;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px inset rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+
+    svg {
+        fill: #FFF0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.checkbox.checked {
+    background-color: #9884fb;
+    transition: all 80ms;
+
+    svg {
+        polygon {
+            fill: #FFF;
+        }
+    }
+}

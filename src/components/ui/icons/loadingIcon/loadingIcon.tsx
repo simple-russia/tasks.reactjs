@@ -9,7 +9,7 @@ export const LoadingIcon = ({
     style,
 }: IIcon) => {
     return (
-        <span className={styles.loading}>
+        <span style={{ width: 20, height: 20, ...style }} className={styles.loading}>
             <Loading style={{ width: 20, height: 20, ...style }} />
         </span>
     );

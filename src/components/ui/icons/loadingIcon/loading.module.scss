@@ -7,7 +7,10 @@
     }
 }
 
-.loading > svg {
-    animation: rotate 800ms linear infinite;
-    fill: #a2a2a2;
+.loading {
+    display: inline-block;
+    > svg {
+        animation: rotate 800ms linear infinite;
+        fill: #a2a2a2;
+    }
 }

@@ -9,6 +9,7 @@ import { Button, Input } from 'components/ui/form';
 import { UserIcon, LockIcon, LoadingIcon } from 'components/ui/icons';
 
 import styles from './login.module.scss';
+import { Checkbox } from 'components/ui/form/checkbox';
 
 
 
@@ -36,9 +37,20 @@ export const Login = observer(() => {
                 <Pattern height={100} width={100} type='circle' color='#123456' styles={{ position: 'absolute', left: -55, top: 140 }} />
 
                 <div className={styles.login_box}>
-                    <h1 style={{ marginBottom: '10px', position: 'relative' }}>Log in</h1>
+                    <h1 style={{ marginBottom: '10px', position: 'relative', opacity: 0 }}>Log in</h1>
                     <Input required prefixIcon={<UserIcon />} placeholder='username' />
                     <Input required prefixIcon={<LockIcon />} placeholder='password' type='password' />
+
+                    <div className={styles.help_block}>
+                        <div>
+                            <Checkbox /> remember me
+                        </div>
+
+                        <div>
+                            <a href=''>forgot password?</a>
+                        </div>
+                    </div>
+
                     <Button
                         style={{ width: '100%', height: 50 }}
                         onClick={onBtnClick}

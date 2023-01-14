@@ -19,7 +19,6 @@
     grid-template-columns: 1fr;
 }
 
-
 .reveal_password {
     position: absolute;
     display: flex;
@@ -29,12 +28,18 @@
     right: 0;
     height: 100%;
     width: 40px;
+    opacity: 0.4;
 
     cursor: pointer;
 
     &:hover > svg {
         filter: brightness(1.1);
     }
+}
+
+.reveal_password:hover {
+    opacity: 0.6;
+    transition: all 200ms;
 }
 
 .prefix {
@@ -45,7 +50,8 @@
     width: 40px;
     border-right: 1px solid black;
     box-sizing: content-box;
-    background-color: #edeeff;;
+    background-color: #edeeff;
+    box-shadow: 0 0 0 1px inset #fff;
 }
 
 .input {
@@ -61,6 +67,11 @@
 
 .password_input {
     padding-right: 40px;
+}
+
+.password_hidden {
+    font-family: monospace;
+    letter-spacing: 2px;
 }
 
 .error_text {
