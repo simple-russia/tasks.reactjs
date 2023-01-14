@@ -5,6 +5,7 @@
     padding: 2px;
     overflow: hidden;
     margin: auto;
+    user-select: none;
     filter:
         hue-rotate(240deg)
         grayscale(0.5)

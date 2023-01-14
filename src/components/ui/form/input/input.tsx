@@ -1,5 +1,5 @@
 import { EyeClosedIcon, EyeIcon } from 'components/ui/icons';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { concatStrings as c } from 'utils/concatStrings';
 import { FieldValidator, requiredValidator } from './validators';
 import styles from './input.module.scss';
@@ -14,6 +14,8 @@ interface IInputProps {
     required?: boolean,
     onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
     onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    value?: string,
 }
 
 
@@ -30,19 +32,22 @@ export const Input = ({
     required=DEFAULT_REQUIRED,
     onFocus,
     onBlur,
+    value,
+    onChange,
 }: IInputProps) => {
     const [errors, setErrors] = useState<string[]>([]);
-    const [value, setValue] = useState<string>('');
     const [passwordShown, setPasswordShown] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const hasPrefix = !!prefixIcon;
     const isPassword = type === 'password';
     const inputType = !isPassword ? type : !passwordShown ? type : 'text';
-    const isPasswordHidden = isPassword && value && !passwordShown;
+    const isPasswordHidden = isPassword && inputRef.current?.value && !passwordShown;
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setValue(value);
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) {
+            onChange(e);
+        }
 
         const inputErrors: string[] = [];
 
@@ -51,7 +56,7 @@ export const Input = ({
         }
 
         validators.forEach(validator => {
-            const validation = validator(value);
+            const validation = validator(e.target.value);
 
             if (!validation.isValid && validation.errorMessage) {
                 inputErrors.push(validation.errorMessage);
@@ -73,8 +78,9 @@ export const Input = ({
                 }
 
                 <input
+                    ref={inputRef}
                     value={value}
-                    onChange={onChange}
+                    onChange={onInputChange}
                     type={inputType}
                     placeholder={placeholder}
                     className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
