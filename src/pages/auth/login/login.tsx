@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { authStore } from 'stores/authStore';
 
-import { Wrapper3d, Pattern } from 'components/ui/decoration';
+import { Wrapper3d, Pattern, TitleBar } from 'components/ui/decoration';
 import { Button, Input, Checkbox } from 'components/ui/form';
 import { UserIcon, LockIcon, LoadingIcon } from 'components/ui/icons';
 
@@ -39,6 +39,8 @@ export const Login = observer(() => {
                 <Pattern height={100} width={100} type='circle' color='#123456' styles={{ position: 'absolute', left: -55, top: 140 }} />
 
                 <div className={styles.login_box}>
+                    <TitleBar className={styles.top_bar} />
+
                     <MonkeyHead eyesClosed={!eyesClosed} />
 
                     <Input onFocus={() => setEyesClosed(true)} onBlur={() => setEyesClosed(false)} required prefixIcon={<UserIcon />} placeholder='username' />
