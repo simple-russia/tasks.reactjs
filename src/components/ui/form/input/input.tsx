@@ -111,19 +111,25 @@ export const Input = ({
                     </div>
                 }
 
-                <input
-                    ref={inputRef}
-                    value={value ?? uncontrolledValue}
-                    onChange={onInputChange}
-                    type={hasMounted.current ? inputType : 'search'}
-                    placeholder={placeholder}
-                    className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
-                    onFocus={onFocus}
-                    onBlur={onInputBlur}
-                    name={placeholder}
-                    autoComplete="false"
-                    id={placeholder}
-                />
+                <div className={styles.input_wrapper}>
+                    {
+                        required &&
+                        <div className={styles.required}>*</div>
+                    }
+                    <input
+                        ref={inputRef}
+                        value={value ?? uncontrolledValue}
+                        onChange={onInputChange}
+                        type={hasMounted.current ? inputType : 'search'}
+                        placeholder={placeholder}
+                        className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
+                        onFocus={onFocus}
+                        onBlur={onInputBlur}
+                        name={placeholder}
+                        autoComplete="false"
+                        id={placeholder}
+                    />
+                </div>
 
                 {
                     isPassword &&

@@ -57,12 +57,26 @@
 .input {
     display: block;
     border: 0;
-    padding: 0 8px;
+    padding: 0 12px;
     flex: 0 1;
     font-size: 16px;
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
+    height: 100%;
+}
+
+.input_wrapper {
+    position: relative;
+    height: 100%;
+}
+
+.required {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 20px;
+    color: #ff0000;
 }
 
 .password_input {

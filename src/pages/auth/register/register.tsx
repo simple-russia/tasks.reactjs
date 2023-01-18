@@ -65,9 +65,13 @@ export const Register = observer(() => {
                         <MonkeyHead eyesClosed={false} />
 
                         <Input required prefixIcon={<UserIcon />} placeholder='username' />
+
                         <Input required prefixIcon={<LockIcon />} placeholder='password' type='password' />
-                        <Input required prefixIcon={<LockIcon />} validators={[charsV]} placeholder='password' onErrorsChange={(errs) => setErrors(prev => ({ ...prev, a: errs }))} type='password' />
-                        <Input required prefixIcon={<LockIcon />} placeholder='password' onErrorsChange={(errs) => setErrors(prev => ({ ...prev, b: errs }))} type='text' />
+
+
+                        <div style={{ marginBottom: 4, fontSize: 15 }}>Repeat password:</div>
+                        <Input prefixIcon={<LockIcon />} required validators={[charsV, charsV]} placeholder='password' onErrorsChange={(errs) => setErrors(prev => ({ ...prev, a: errs }))} type='password' />
+                        <Input placeholder='password' onErrorsChange={(errs) => setErrors(prev => ({ ...prev, b: errs }))} type='text' />
 
                         <div className={styles.agreement}>
                             <Checkbox /> I have read privacy policy and terms of service

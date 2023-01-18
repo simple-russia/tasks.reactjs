@@ -20,6 +20,18 @@ export const Login = observer(() => {
 
     const [eyesClosed, setEyesClosed] = useState(false); // for the monkey head
     const [isFetching, setIsFetching] = useState(false);
+    const [errors, setErrors] = useState<Record<string, string[]>>({
+        username: [],
+        password: [],
+    });
+
+
+
+    const updateErrors = (field: string, errors: string[]) => {
+        setErrors(prev => {
+            return { ...prev, [field]: errors };
+        });
+    };
 
     const onBtnClick = () => {
         setIsFetching(true);
@@ -44,8 +56,22 @@ export const Login = observer(() => {
 
                     <MonkeyHead eyesClosed={!eyesClosed} />
 
-                    <Input onFocus={() => setEyesClosed(true)} onBlur={() => setEyesClosed(false)} required prefixIcon={<UserIcon />} placeholder='username' />
-                    <Input onFocus={() => setEyesClosed(true)} onBlur={() => setEyesClosed(false)} required prefixIcon={<LockIcon />} placeholder='password' type='password' />
+                    <Input
+                        onFocus={() => setEyesClosed(true)}
+                        onBlur={() => setEyesClosed(false)}
+                        required
+                        prefixIcon={<UserIcon />}
+                        placeholder='username'
+                        onErrorsChange={(errs) => updateErrors('username', errs)}
+                    />
+                    <Input
+                        onFocus={() => setEyesClosed(true)}
+                        onBlur={() => setEyesClosed(false)}
+                        required prefixIcon={<LockIcon />}
+                        placeholder='password'
+                        type='password'
+                        onErrorsChange={(errs) => updateErrors('password', errs)}
+                    />
 
                     <div className={styles.help_block}>
                         <div>
@@ -60,7 +86,8 @@ export const Login = observer(() => {
                     <Button
                         style={{ width: '100%', height: 50 }}
                         onClick={onBtnClick}
-                        disabled={isFetching}
+                        disabled={isFetching || !!Object.values(errors).filter(errs => errs.length).length}
+                        shining
                     >
                         {isFetching ? <LoadingIcon /> : 'SIGN IN'}
                     </Button>
