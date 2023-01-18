@@ -1,5 +1,5 @@
 import { EyeClosedIcon, EyeIcon } from 'components/ui/icons';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { concatStrings as c } from 'utils/concatStrings';
 import { FieldValidator, requiredValidator } from './validators';
 import styles from './input.module.scss';
@@ -15,6 +15,7 @@ interface IInputProps {
     onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
     onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onErrorsChange?: (errors: string[]) => void
     value?: string,
 }
 
@@ -34,21 +35,23 @@ export const Input = ({
     onBlur,
     value,
     onChange,
+    onErrorsChange,
 }: IInputProps) => {
     const [errors, setErrors] = useState<string[]>([]);
     const [passwordShown, setPasswordShown] = useState(false);
+    const [uncontrolledValue, setUncontrolledValue] = useState('');
+
     const inputRef = useRef<HTMLInputElement>(null);
+    const isTouched = useRef(false);
+    const hasMounted = useRef(false);
 
     const hasPrefix = !!prefixIcon;
     const isPassword = type === 'password';
     const inputType = !isPassword ? type : !passwordShown ? type : 'text';
     const isPasswordHidden = isPassword && inputRef.current?.value && !passwordShown;
 
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (onChange) {
-            onChange(e);
-        }
 
+    const validate = (value: string) => {
         const inputErrors: string[] = [];
 
         if (required) {
@@ -56,7 +59,7 @@ export const Input = ({
         }
 
         validators.forEach(validator => {
-            const validation = validator(e.target.value);
+            const validation = validator(value);
 
             if (!validation.isValid && validation.errorMessage) {
                 inputErrors.push(validation.errorMessage);
@@ -65,6 +68,37 @@ export const Input = ({
 
         setErrors(inputErrors);
     };
+
+
+    const onInputBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+        if (onBlur) {
+            onBlur(e);
+        }
+    };
+
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) {
+            onChange(e);
+        }
+
+        validate(e.target.value);
+        isTouched.current = true;
+
+        setUncontrolledValue(e.target.value);
+    };
+
+
+    useEffect(() => {
+        if (onErrorsChange) {
+            onErrorsChange(errors);
+        }
+    }, [errors]);
+
+    useEffect(() => {
+        validate(value || uncontrolledValue);
+
+        hasMounted.current = true;
+    }, []);
 
 
     return (
@@ -79,13 +113,16 @@ export const Input = ({
 
                 <input
                     ref={inputRef}
-                    value={value}
+                    value={value ?? uncontrolledValue}
                     onChange={onInputChange}
-                    type={inputType}
+                    type={hasMounted.current ? inputType : 'search'}
                     placeholder={placeholder}
                     className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
                     onFocus={onFocus}
-                    onBlur={onBlur}
+                    onBlur={onInputBlur}
+                    name={placeholder}
+                    autoComplete="false"
+                    id={placeholder}
                 />
 
                 {
@@ -96,7 +133,7 @@ export const Input = ({
                 }
             </div>
 
-            <div className={styles.error_text}>
+            <div className={c(styles.error_text, isTouched.current && errors.length && styles.error_appear)}>
                 {errors[0]}
             </div>
         </div>

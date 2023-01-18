@@ -9,8 +9,8 @@
 }
 
 .register_wrapper {
-    width: 550px;
-    height: 500px;
+    width: 700px;
+    height: 750px;
 }
 
 .register_box {
@@ -18,12 +18,20 @@
     width: 100%;
     height: 100%;
     padding-top: 30px;
+    overflow: hidden;
 
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 240px 1fr;
 
     > .image_box {
-        background-color: blue;
+        overflow: hidden;
+        background: #f3be1b;
+
+        > img {
+            transform: translateX(-320px);
+            height: 100%;
+            user-select: none;
+        }
     }
 
     > .form_box {
@@ -32,15 +40,57 @@
     }
 }
 
-@media (max-width: 500px) {
-    .register_box {
-        grid-template-columns: 0 1fr;
-    }
-}
-
 .top_bar {
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
+}
+
+.welcome_text {
+    font-family: 'Inter';
+    font-size: 34px;
+    text-align: center;
+    max-width: 300px;
+    margin: auto;
+    margin-bottom: 20px;
+    
+    > span {
+        color: #0000;
+        position: relative;
+        background-clip: text;
+        background-image: linear-gradient(#3eecfe, #3c00ff);
+
+        .wavy1 {
+            position: absolute;
+            bottom: -30px;
+            right: 52px;
+            transform: scale(0.62);
+        }
+    }
+}
+
+.login {
+    font-size: 14px;
+    padding: 16px 0 4px;
+    text-align: center;
+}
+
+.agreement {
+    gap: 4px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    line-height: 20px;
+    user-select: none;
+}
+
+
+@media (max-width: 500px) {
+    .register_box {
+        grid-template-columns: 0 1fr;
+    }
+
+    .welcome_text {
+        max-width: 330px;
+    }
 }

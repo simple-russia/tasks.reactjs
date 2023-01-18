@@ -1,1 +1,0 @@
-export { MonkeyHead } from './monkeyHead';

@@ -1,0 +1,54 @@
+@keyframes monkeyGlide {
+    from {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(2px);
+    }
+    to {
+        transform: translateY(0px);
+    }
+}
+
+.container {
+    position: relative;
+    width: 60px;
+    height: 50px;
+    padding: 2px;
+    overflow: hidden;
+    margin: auto;
+    user-select: none;
+    cursor: pointer;
+
+    animation: monkeyGlide 3000ms infinite;
+
+    filter:
+        hue-rotate(240deg)
+        grayscale(0.5)
+        drop-shadow(0 0px 0.4px black)
+        drop-shadow(0 0px 0.4px black)
+        drop-shadow(0 0px 0.4px black)
+        drop-shadow(0 0px 0.4px black)
+    ;
+
+    > img {
+        width: 100%;
+    }
+
+    &:active {
+        transform: translateX(10px);
+    }
+}
+
+.hands {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 500ms cubic-bezier(.02,1.01,.53,1.01);
+    // animation: monkeyGlide 3000ms infinite;
+    transform: translateY(0px) scale(0.8);
+}
+
+.eyesClosed {
+    transform: translateY(20px) scale(0.9);
+}

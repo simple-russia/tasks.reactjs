@@ -1,6 +1,18 @@
+@keyframes UIInputShine {
+    from {
+        right: 100%;
+    }
+    to {
+        right: -400%;
+    }
+}
+
 .button {
     cursor: pointer;
     display: block;
+    position: relative;
+    overflow: hidden;
+
     width: 240px;
     height: 51px;
     border: var(--border-width) solid var(--border-color);
@@ -9,9 +21,25 @@
     background: #9884fb;
     color: #fff;
     font-size: 14px;
-    letter-spacing: 1px;
+    user-select: none;
 
     transition: 100ms all;
+
+    &.shine:not(.disabled)::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        background-image: linear-gradient(110deg, transparent 20%, #ffffff33 50%, transparent 80%);
+        width: 300px;
+        height: 100%;
+
+        animation: UIInputShine 6000ms infinite;
+    }
+
+    &:hover {
+        background: #8b79e7;
+    }
 }
 
 .button.disabled {

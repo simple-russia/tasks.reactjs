@@ -38,6 +38,7 @@
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-empty-function": "warn",
         "@typescript-eslint/no-explicit-any": "off",
-        "no-duplicate-imports": "error"
+        "no-duplicate-imports": "error",
+        "no-constant-condition": "off"
     }
 }

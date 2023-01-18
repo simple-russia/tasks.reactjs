@@ -8,8 +8,9 @@ import { Wrapper3d, Pattern, TitleBar } from 'components/ui/decoration';
 import { Button, Input, Checkbox } from 'components/ui/form';
 import { UserIcon, LockIcon, LoadingIcon } from 'components/ui/icons';
 
+import { MonkeyHead } from '../monkeyHead';
+
 import styles from './login.module.scss';
-import { MonkeyHead } from './monkeyHead/monkeyHead';
 
 
 
