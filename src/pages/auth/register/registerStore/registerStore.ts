@@ -12,7 +12,7 @@ class RegisterStore {
 
     @computed
     public get isValid () {
-        return !!Object.values(this.errors).filter(errors => errors.length).length && !this.checkedPolicy;
+        return !Object.values(this.errors).filter(errors => errors.length).length && this.checkedPolicy;
     }
 
     constructor () {

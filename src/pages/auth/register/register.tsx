@@ -60,6 +60,7 @@ export const Register = observer(() => {
                             onErrorsChange={(errs) => registerStore.setErrors('username', errs)}
                             validators={[usernameLengthValidator, usernameCharsetValidator]}
                             maxLength={30}
+                            // controlledErrors={['This username is already taken']}
                         />
 
                         <Input
@@ -105,7 +106,7 @@ export const Register = observer(() => {
                         <Button
                             style={{ width: '100%', height: 50 }}
                             shining
-                            disabled={registerStore.isValid}
+                            disabled={!registerStore.isValid}
                         >
                             {false ? <LoadingIcon /> : 'REGISTER ME'}
                         </Button>
