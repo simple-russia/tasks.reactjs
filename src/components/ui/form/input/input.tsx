@@ -9,7 +9,6 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     type?: 'text' | 'password',
     prefixIcon?: JSX.Element,
     validators?: FieldValidator[],
-    required?: boolean,
     onErrorsChange?: (errors: string[]) => void,
     controlledErrors?: string[],
     value?: string,

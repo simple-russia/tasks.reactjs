@@ -6,12 +6,13 @@ class RegisterStore {
     @observable username = '';
     @observable password = '';
     @observable passwordRepeat = '';
+    @observable checkedPolicy = false;
 
     @observable errors: Record<string, string[]> = {};
 
     @computed
     public get isValid () {
-        return !!Object.values(this.errors).filter(errors => errors.length).length;
+        return !!Object.values(this.errors).filter(errors => errors.length).length && !this.checkedPolicy;
     }
 
     constructor () {
@@ -37,6 +38,10 @@ class RegisterStore {
     public setErrors (field: string, errors: string[]) {
         this.errors[field] = errors;
     }
+
+    @action toggleCheckedPolicy = () => {
+        this.checkedPolicy = !this.checkedPolicy;
+    };
 }
 
 

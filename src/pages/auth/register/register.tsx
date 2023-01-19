@@ -96,7 +96,10 @@ export const Register = observer(() => {
                         />
 
                         <div className={styles.agreement}>
-                            <Checkbox /> I have read privacy policy and terms of service
+                            <Checkbox
+                                value={registerStore.checkedPolicy}
+                                onChange={() => registerStore.toggleCheckedPolicy()}
+                            /> I have read privacy policy and terms of service
                         </div>
 
                         <Button
