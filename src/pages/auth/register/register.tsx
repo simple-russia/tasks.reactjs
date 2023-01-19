@@ -1,38 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import { authStore } from 'stores/authStore';
+import { registerStore } from './registerStore';
 
 import { TitleBar, WavyLine, Wrapper3d } from 'components/ui/decoration';
-
-import styles from './register.module.scss';
 import { MonkeyHead } from '../monkeyHead';
 import { Button, Checkbox, Input } from 'components/ui/form';
 import { LoadingIcon, LockIcon, UserIcon } from 'components/ui/icons';
+
 import mainImage from 'media/images/manager.jpg';
-import { FieldValidator } from 'components/ui/form/input/validators';
 
+import { createPasswordRepeatValidator, passwordCharsetValidator, passwordLengthValidator, usernameCharsetValidator, usernameLengthValidator } from './validators';
 
+import styles from './register.module.scss';
 
-const charsV: FieldValidator = (value) => {
-    const validatorName = 'chars';
-
-    const regexp = /^[a-zA-Z0-9_]*$/;
-
-    if (regexp.test(value)) {
-        return { isValid: true, validatorName };
-    }
-
-    return { isValid: false, validatorName, errorMessage: 'Use only latin letters, digits and _' };
-};
 
 
 export const Register = observer(() => {
-    const [errors, setErrors] = useState<Record<string, string[]>>({
-        a: [],
-        b: [],
-    });
     const navigate = useNavigate();
 
 
@@ -45,7 +31,7 @@ export const Register = observer(() => {
 
     return (
         <div className={styles.register_page_cont}>
-            <Wrapper3d className={styles.register_wrapper} offset={12} lineWidth={1} backgroundColor={'#868686'}>
+            <Wrapper3d className={styles.register_wrapper} offset={12} lineWidth={1} backgroundColor={'#bf9797'}>
                 <div className={styles.register_box}>
                     <TitleBar className={styles.top_bar} />
 
@@ -62,16 +48,52 @@ export const Register = observer(() => {
                             </span>
                             {' for it.'}
                         </div>
+
                         <MonkeyHead eyesClosed={false} />
 
-                        <Input required prefixIcon={<UserIcon />} placeholder='username' />
+                        <Input
+                            required
+                            prefixIcon={<UserIcon />}
+                            placeholder='username'
+                            value={registerStore.username}
+                            onChange={(e) => registerStore.setUsername(e.target.value)}
+                            onErrorsChange={(errs) => registerStore.setErrors('username', errs)}
+                            validators={[usernameLengthValidator, usernameCharsetValidator]}
+                            maxLength={30}
+                        />
 
-                        <Input required prefixIcon={<LockIcon />} placeholder='password' type='password' />
+                        <Input
+                            required
+                            prefixIcon={<LockIcon />}
+                            placeholder='password'
+                            type='password'
+                            value={registerStore.password}
+                            onChange={(e) => registerStore.setPassword(e.target.value)}
+                            onErrorsChange={(errs) => registerStore.setErrors('password', errs)}
+                            maxLength={35}
+                            validators={[passwordLengthValidator, passwordCharsetValidator]}
+                        />
 
 
                         <div style={{ marginBottom: 4, fontSize: 15 }}>Repeat password:</div>
-                        <Input prefixIcon={<LockIcon />} required validators={[charsV, charsV]} placeholder='password' onErrorsChange={(errs) => setErrors(prev => ({ ...prev, a: errs }))} type='password' />
-                        <Input placeholder='password' onErrorsChange={(errs) => setErrors(prev => ({ ...prev, b: errs }))} type='text' />
+
+                        <Input
+                            prefixIcon={<LockIcon />}
+                            required
+                            placeholder='repeat password'
+                            onErrorsChange={(errs) => registerStore.setErrors('repeatPassword', errs)}
+                            type='password'
+                            value={registerStore.passwordRepeat}
+                            onChange={(e) => registerStore.setPasswordRepeat(e.target.value)}
+                            maxLength={35}
+                            validators={[createPasswordRepeatValidator(registerStore.password)]}
+                        />
+
+                        <Input
+                            placeholder='your invite code'
+                            onErrorsChange={(errs) => registerStore.setErrors('code', errs)}
+                            type='text'
+                        />
 
                         <div className={styles.agreement}>
                             <Checkbox /> I have read privacy policy and terms of service
@@ -80,14 +102,10 @@ export const Register = observer(() => {
                         <Button
                             style={{ width: '100%', height: 50 }}
                             shining
-                            disabled={!!Object.values(errors).filter(errors => errors.length).length}
+                            disabled={registerStore.isValid}
                         >
                             {false ? <LoadingIcon /> : 'REGISTER ME'}
                         </Button>
-
-                        <div style={{ position: 'absolute' }}>
-                            {Object.values(errors).filter(errors => errors.length).length}
-                        </div>
 
                         <div className={styles.login}>
                             Already have an account? <Link to={'/login'}>Sign in here</Link>

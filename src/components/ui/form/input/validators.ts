@@ -25,14 +25,16 @@ export const requiredValidator: FieldValidator = (value) => {
 };
 
 
-// export const createLengthValidator = (min: number, max: number) => {
-//     const lengthValidator: FieldValidator = (value) => {
-//         const validatorName = 'required';
+export const createLengthValidator = (min: number, max: number) => {
+    const lengthValidator: FieldValidator = (value) => {
+        const validatorName = 'length';
 
-//         if (value) {
-//             return { isValid: true, validatorName };
-//         }
+        if (value.length >= min && value.length <= max ) {
+            return { isValid: true, validatorName };
+        }
 
-//         return { isValid: false, validatorName, errorMessage: 'This field is required' };
-//     };
-// };
+        return { isValid: false, validatorName, errorMessage: `Length must be between ${min} and ${max}` };
+    };
+
+    return lengthValidator;
+};

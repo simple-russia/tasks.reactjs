@@ -1,0 +1,1 @@
+export { registerStore } from './registerStore';

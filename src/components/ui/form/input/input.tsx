@@ -1,41 +1,41 @@
 import { EyeClosedIcon, EyeIcon } from 'components/ui/icons';
-import { useEffect, useRef, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 import { concatStrings as c } from 'utils/concatStrings';
 import { FieldValidator, requiredValidator } from './validators';
 import styles from './input.module.scss';
 
 
-interface IInputProps {
+interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     type?: 'text' | 'password',
-    placeholder?: string,
-    style?: React.CSSProperties,
     prefixIcon?: JSX.Element,
     validators?: FieldValidator[],
     required?: boolean,
-    onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
-    onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void,
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    onErrorsChange?: (errors: string[]) => void
+    onErrorsChange?: (errors: string[]) => void,
+    controlledErrors?: string[],
     value?: string,
 }
 
 
 const DEFAULT_TYPE = 'text';
 const DEFAULT_REQUIRED = false;
-
+// required not to create a new array on each render of Input which causes state loops
+const DEFAULT_CONTROLLED_ERRORS: string[] = [];
+const DEFAULT_VALIDATORS: FieldValidator[] = [];
 
 export const Input = ({
     placeholder,
     type=DEFAULT_TYPE,
     style,
     prefixIcon,
-    validators=[],
     required=DEFAULT_REQUIRED,
     onFocus,
     onBlur,
     value,
     onChange,
     onErrorsChange,
+    validators=DEFAULT_VALIDATORS,
+    controlledErrors=DEFAULT_CONTROLLED_ERRORS,
+    ...inputProps
 }: IInputProps) => {
     const [errors, setErrors] = useState<string[]>([]);
     const [passwordShown, setPasswordShown] = useState(false);
@@ -53,6 +53,7 @@ export const Input = ({
 
     const validate = (value: string) => {
         const inputErrors: string[] = [];
+
 
         if (required) {
             validators.push(requiredValidator);
@@ -87,19 +88,22 @@ export const Input = ({
         setUncontrolledValue(e.target.value);
     };
 
-
+    // invoke validation errors callback when needed
     useEffect(() => {
         if (onErrorsChange) {
-            onErrorsChange(errors);
+            onErrorsChange([...errors, ...controlledErrors]);
         }
-    }, [errors]);
+    }, [errors, controlledErrors]);
+
+    useEffect(() => {
+        validate(value || uncontrolledValue);
+    }, [validators]);
 
     useEffect(() => {
         validate(value || uncontrolledValue);
 
         hasMounted.current = true;
     }, []);
-
 
     return (
         <div className={styles.wrapper} style={style}>
@@ -125,9 +129,7 @@ export const Input = ({
                         className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
                         onFocus={onFocus}
                         onBlur={onInputBlur}
-                        name={placeholder}
-                        autoComplete="false"
-                        id={placeholder}
+                        {...inputProps}
                     />
                 </div>
 
@@ -139,8 +141,8 @@ export const Input = ({
                 }
             </div>
 
-            <div className={c(styles.error_text, isTouched.current && errors.length && styles.error_appear)}>
-                {errors[0]}
+            <div className={c(styles.error_text, isTouched.current && [...errors, ...controlledErrors].length && styles.error_appear)}>
+                {[...errors, ...controlledErrors][0]}
             </div>
         </div>
     );
