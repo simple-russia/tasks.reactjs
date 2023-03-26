@@ -11,6 +11,7 @@ import { UserIcon, LockIcon, LoadingIcon } from 'components/ui/icons';
 import { MonkeyHead } from '../monkeyHead';
 
 import styles from './login.module.scss';
+import { loginStore } from './loginStore';
 
 
 
@@ -19,7 +20,6 @@ export const Login = observer(() => {
     const navigate = useNavigate();
 
     const [eyesClosed, setEyesClosed] = useState(false); // for the monkey head
-    const [isFetching, setIsFetching] = useState(false);
     const [errors, setErrors] = useState<Record<string, string[]>>({
         username: [],
         password: [],
@@ -33,9 +33,8 @@ export const Login = observer(() => {
         });
     };
 
-    const onBtnClick = () => {
-        setIsFetching(true);
-        setTimeout(() => setIsFetching(false), 2000);
+    const onSignInClick = () => {
+        loginStore.logInUser();
     };
 
 
@@ -57,20 +56,30 @@ export const Login = observer(() => {
                     <MonkeyHead eyesClosed={!eyesClosed} />
 
                     <Input
+                        value={loginStore.login}
+                        onChange={e => loginStore.setLogin(e.target.value)}
+
                         onFocus={() => setEyesClosed(true)}
                         onBlur={() => setEyesClosed(false)}
+                        onErrorsChange={(errs) => updateErrors('username', errs)}
+
                         required
                         prefixIcon={<UserIcon />}
                         placeholder='username'
-                        onErrorsChange={(errs) => updateErrors('username', errs)}
                     />
+
                     <Input
+                        value={loginStore.password}
+                        onChange={e => loginStore.setPassword(e.target.value)}
+
                         onFocus={() => setEyesClosed(true)}
                         onBlur={() => setEyesClosed(false)}
-                        required prefixIcon={<LockIcon />}
+                        onErrorsChange={(errs) => updateErrors('password', errs)}
+
+                        required
+                        prefixIcon={<LockIcon />}
                         placeholder='password'
                         type='password'
-                        onErrorsChange={(errs) => updateErrors('password', errs)}
                     />
 
                     <div className={styles.help_block}>
@@ -85,11 +94,11 @@ export const Login = observer(() => {
 
                     <Button
                         style={{ width: '100%', height: 50 }}
-                        onClick={onBtnClick}
-                        disabled={isFetching || !!Object.values(errors).filter(errs => errs.length).length}
+                        onClick={onSignInClick}
+                        disabled={loginStore.isLoggingIn || !!Object.values(errors).filter(errs => errs.length).length}
                         shining
                     >
-                        {isFetching ? <LoadingIcon /> : 'SIGN IN'}
+                        {loginStore.isLoggingIn ? <LoadingIcon /> : 'SIGN IN'}
                     </Button>
 
                     <div className={styles.register}>
