@@ -1,6 +1,5 @@
 import { authStore } from 'stores/authStore';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 
@@ -10,8 +9,21 @@ interface INavbarLayoutProps {
 }
 
 export const NavbarLayout = observer(({ children }: INavbarLayoutProps) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+
+    const onLogoutClick = async () => {
+        await authStore.logout();
+        navigate('/login');
+    };
+
+    const onLoginClick = () => {
+        navigate('/login');
+    };
+
+    const onRegisterClick = () => {
+        navigate('/register');
+    };
 
     return (
         <div>
@@ -30,15 +42,12 @@ export const NavbarLayout = observer(({ children }: INavbarLayoutProps) => {
                                 User:
                                 </span>
                                 {authStore.currentUser.username}
-
-                                <button style={{ marginLeft: '8px' }} onClick={() => authStore.logout()}>logout</button>
+                                <button style={{ marginLeft: '8px' }} onClick={onLogoutClick}>logout</button>
                             </div>
                             :
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <input value={username} onChange={e => setUsername(e.target.value)} placeholder='username' />
-                                <input value={password} onChange={e => setPassword(e.target.value)} placeholder='password' type='password' />
-                                <button onClick={() => authStore.login(username, password)}>login</button>
-                                <button onClick={() => authStore.register(username, password)}>register</button>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'white' }}>
+                                <button style={{ color: 'white' }} onClick={onLoginClick}>login</button>
+                                <button style={{ color: 'white' }} onClick={onRegisterClick}>register</button>
                             </div>
                     }
                 </div>

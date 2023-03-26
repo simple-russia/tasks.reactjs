@@ -23,4 +23,19 @@ http.interceptors.request.use(config => {
     return config;
 });
 
+http.interceptors.response.use((response) => {
+    if (response.data === '') {
+        response.data = null;
+    }
+
+    return response;
+},
+(response) => {
+    if (response.data === '') {
+        response.data = null;
+    }
+
+    return response;
+},);
+
 export { http };

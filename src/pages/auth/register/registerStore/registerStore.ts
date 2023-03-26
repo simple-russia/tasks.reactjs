@@ -1,4 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
+import { authStore } from 'stores/authStore';
 
 
 
@@ -8,15 +9,26 @@ class RegisterStore {
     @observable passwordRepeat = '';
     @observable checkedPolicy = false;
 
+    @observable isRegistering = false;
+
     @observable errors: Record<string, string[]> = {};
 
     @computed
     public get isValid () {
-        return !Object.values(this.errors).filter(errors => errors.length).length && this.checkedPolicy;
+        const isValid = !Object.values(this.errors).filter(errors => errors.length).length && this.checkedPolicy;
+
+        return isValid;
     }
 
     constructor () {
         makeObservable(this);
+    }
+
+    @action
+    public async registerUser () {
+        this.isRegistering = true;
+        await authStore.register(this.username, this.password);
+        this.isRegistering = false;
     }
 
     @action

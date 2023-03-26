@@ -22,6 +22,11 @@ export const Register = observer(() => {
     const navigate = useNavigate();
 
 
+    const onRegisterClick = () => {
+        registerStore.registerUser();
+    };
+
+
     useEffect(() => {
         if (authStore.currentUser) {
             navigate('/main', { relative: 'path' });
@@ -31,7 +36,7 @@ export const Register = observer(() => {
 
     return (
         <div className={styles.register_page_cont}>
-            <Wrapper3d className={styles.register_wrapper} offset={12} lineWidth={1} backgroundColor={'#bf9797'}>
+            <Wrapper3d className={styles.register_wrapper} offset={12} lineWidth={1} backgroundColor={'#bcc2ea66'}>
                 <div className={styles.register_box}>
                     <TitleBar className={styles.top_bar} />
 
@@ -41,12 +46,12 @@ export const Register = observer(() => {
 
                     <div className={styles.form_box}>
                         <div className={styles.welcome_text}>
-                            {'You\'ve been'}
+                            {'Workflow control is '}
                             <span>
-                                <WavyLine className={styles.wavy1} color='#f3be1b' strokeWidth={6} />
-                                looking
+                                <WavyLine className={styles.wavy1} color='#f3be1b' strokeWidth={5} />
+                                greater
                             </span>
-                            {' for it.'}
+                            {' now'}
                         </div>
 
                         <MonkeyHead eyesClosed={false} />
@@ -60,7 +65,6 @@ export const Register = observer(() => {
                             onErrorsChange={(errs) => registerStore.setErrors('username', errs)}
                             validators={[usernameLengthValidator, usernameCharsetValidator]}
                             maxLength={30}
-                            // controlledErrors={['This username is already taken']}
                         />
 
                         <Input
@@ -92,7 +96,7 @@ export const Register = observer(() => {
 
                         <Input
                             placeholder='your invite code'
-                            onErrorsChange={(errs) => registerStore.setErrors('code', errs)}
+                            // onErrorsChange={(errs) => registerStore.setErrors('code', errs)}
                             type='text'
                         />
 
@@ -106,9 +110,10 @@ export const Register = observer(() => {
                         <Button
                             style={{ width: '100%', height: 50 }}
                             shining
-                            disabled={!registerStore.isValid}
+                            disabled={!registerStore.isValid || registerStore.isRegistering}
+                            onClick={onRegisterClick}
                         >
-                            {false ? <LoadingIcon /> : 'REGISTER ME'}
+                            {registerStore.isRegistering ? <LoadingIcon /> : 'REGISTER ME'}
                         </Button>
 
                         <div className={styles.login}>

@@ -22,7 +22,6 @@ const DEFAULT_CONTROLLED_ERRORS: string[] = [];
 const DEFAULT_VALIDATORS: FieldValidator[] = [];
 
 export const Input = ({
-    placeholder,
     type=DEFAULT_TYPE,
     style,
     prefixIcon,
@@ -124,7 +123,6 @@ export const Input = ({
                         value={value ?? uncontrolledValue}
                         onChange={onInputChange}
                         type={hasMounted.current ? inputType : 'search'}
-                        placeholder={placeholder}
                         className={c(styles.input, isPassword && styles.password_input, isPasswordHidden && styles.password_hidden)}
                         onFocus={onFocus}
                         onBlur={onInputBlur}

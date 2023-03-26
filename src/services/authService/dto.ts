@@ -12,7 +12,7 @@ export interface ILoginInput {
 export type ILoginOutput = IUserObject;
 
 
-export type IGetUserDataOutput = IUserObject;
+export type IGetUserDataOutput = IUserObject | any;
 
 
 export interface IRegisterInput {

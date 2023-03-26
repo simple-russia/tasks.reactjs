@@ -11,6 +11,13 @@
 .register_wrapper {
     width: 700px;
     height: 750px;
+
+    max-height: 100%;
+    max-width: 100%;
+
+    ::-webkit-slider-thumb {
+        background-color: red;
+    }
 }
 
 .register_box {
@@ -22,6 +29,12 @@
 
     display: grid;
     grid-template-columns: 240px 1fr;
+
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
 
     > .image_box {
         overflow: hidden;
@@ -56,6 +69,7 @@
     margin-bottom: 20px;
     
     > span {
+        display: inline-block;
         color: #0000;
         position: relative;
         background-clip: text;
@@ -63,9 +77,9 @@
 
         .wavy1 {
             position: absolute;
-            bottom: -30px;
-            right: 52px;
-            transform: scale(0.62);
+            transform: scaleY(0.8);
+            width: 100%;
+            top: 60%;
         }
     }
 }

@@ -25,7 +25,11 @@ class AuthStore {
     @action
     public async getUserData () {
         const response = await AuthService.getUserData();
-        this.currentUser = response.data;
+        console.log(response.data);
+
+        if (response.data) {
+            this.currentUser = response.data;
+        }
     }
 
     @action

@@ -10,6 +10,9 @@
 
 .login_wrapper {
     width: 350px;
+
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .login_box {
@@ -21,6 +24,13 @@
     padding-top: 48px;
 
     outline: 1px solid black;
+
+    overflow: auto;
+    
+    
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
 }
 
 .help_block {
