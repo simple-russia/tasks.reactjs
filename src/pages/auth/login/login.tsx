@@ -20,18 +20,6 @@ export const Login = observer(() => {
     const navigate = useNavigate();
 
     const [eyesClosed, setEyesClosed] = useState(false); // for the monkey head
-    const [errors, setErrors] = useState<Record<string, string[]>>({
-        username: [],
-        password: [],
-    });
-
-
-
-    const updateErrors = (field: string, errors: string[]) => {
-        setErrors(prev => {
-            return { ...prev, [field]: errors };
-        });
-    };
 
     const onSignInClick = () => {
         loginStore.logInUser();
@@ -61,7 +49,7 @@ export const Login = observer(() => {
 
                         onFocus={() => setEyesClosed(true)}
                         onBlur={() => setEyesClosed(false)}
-                        onErrorsChange={(errs) => updateErrors('username', errs)}
+                        onErrorsChange={(errs) => loginStore.setErrors('username', errs)}
 
                         required
                         prefixIcon={<UserIcon />}
@@ -74,7 +62,7 @@ export const Login = observer(() => {
 
                         onFocus={() => setEyesClosed(true)}
                         onBlur={() => setEyesClosed(false)}
-                        onErrorsChange={(errs) => updateErrors('password', errs)}
+                        onErrorsChange={(errs) => loginStore.setErrors('password', errs)}
 
                         required
                         prefixIcon={<LockIcon />}
@@ -95,7 +83,7 @@ export const Login = observer(() => {
                     <Button
                         style={{ width: '100%', height: 50 }}
                         onClick={onSignInClick}
-                        disabled={loginStore.isLoggingIn || !!Object.values(errors).filter(errs => errs.length).length}
+                        disabled={loginStore.isLoginButtonBlocked}
                         shining
                     >
                         {loginStore.isLoggingIn ? <LoadingIcon /> : 'SIGN IN'}

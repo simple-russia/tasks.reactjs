@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { authStore } from 'stores/authStore';
 
 class LoginStore {
@@ -8,6 +8,11 @@ class LoginStore {
     @observable isLoggingIn = false;
 
     @observable errors: Record<string, string[]> = {};
+
+    @computed
+    get isLoginButtonBlocked () {
+        return Object.values(this.errors).filter(errors => errors.length).length > 0 || this.isLoggingIn;
+    }
 
 
     constructor() {
